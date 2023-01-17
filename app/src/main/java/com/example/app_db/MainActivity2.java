@@ -1,7 +1,6 @@
 package com.example.app_db;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 
 public class MainActivity2 extends AppCompatActivity {
