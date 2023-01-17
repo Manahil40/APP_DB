@@ -59,21 +59,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             switch (view.getId()) {
                 case R.id.even:
                     if (ans == "Even") {
-                        txtAns.setText("Correct Answer!");
+                        txtAns.setText("CORRECT ANSWER!");
                         score++;
                         txtscore.setText("Score: " + score);
                     } else {
-                        txtAns.setText("Incorrect Answer!");
+                        txtAns.setText("WRONG ANSWER!");
                     }
                     break;
 
                 case R.id.odd:
                     if (ans == "Odd") {
-                        txtAns.setText("Correct Answer!");
+                        txtAns.setText("CORRECT ANSWER!");
                         score++;
                         txtscore.setText("Score: " + score);
                     } else {
-                        txtAns.setText("Incorrect Answer!");
+                        txtAns.setText("WRONG ANSWER!");
                     }
                     break;
             }n++;

@@ -15,9 +15,10 @@ public class DBHandler extends SQLiteOpenHelper{
     private static final String TABLE_NAME = "appData";
 
     private static final String COLUMN_ID = "id";
-    private static final String COLUMN_NAME = "name";
-    private static final String COLUMN_ROLLNO = "roll_no";
-    private static final String COLUMN_ENROLL = "is_enroll";
+    private static final String COLUMN_QUESTION = "question";
+    private static final String COLUMN_SCORE = "score";
+    private static final String COLUMN_ANSWER = "answer";
+    private SQLiteDatabase db;
 
     public DBHandler(Context context) {
         super(context, DATABASE_NAME, null, 1);
@@ -26,10 +27,83 @@ public class DBHandler extends SQLiteOpenHelper{
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
 
+        String sql = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + "("
+                + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + COLUMN_QUESTION + " INTEGER,"
+                + COLUMN_SCORE + " INTEGER,"
+                + COLUMN_ANSWER + " BOOLEAN"
+                + ")";
+        db.execSQL(sql);
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        String sql = "DROP TABLE IF EXISTS " + TABLE_NAME;
+        db.execSQL(sql);
+        onCreate(db);
+    }
 
+    public void insertData(APP_BO app_bo) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_QUESTION, app_bo.getQuestion());
+        values.put(COLUMN_SCORE, app_bo.getScore());
+        values.put(COLUMN_ANSWER, app_bo.getAnswer());
+
+        db.insert(TABLE_NAME, null, values);
+        db.close();
+    }
+
+    public void updateData(APP_BO app_bo) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_QUESTION, app_bo.getQuestion());
+        values.put(COLUMN_SCORE, app_bo.getScore());
+        values.put(COLUMN_ANSWER, app_bo.getAnswer());
+
+        //db.update(TABLE_NAME, values, COLUMN_ID + " = ?", new String[] {String.valueOf(app_bo.getScore())});
+        db.close();
+    }
+
+    public void deleteData(String rollNo) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        //db.delete(TABLE_NAME, COLUMN_ID + " = ?", new String[] {id});
+        db.close();
+    }
+
+
+    public List<APP_BO> selectAllStudents() {
+        List<APP_BO> data = new ArrayList<>();
+
+        String sql = "SELECT * FROM " + TABLE_NAME;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(sql, null);
+
+        /*
+        * if (cursorCourses.moveToFirst()) {
+            do {
+                studentArrayList.add(new StudentModel(cursorCourses.getString(1),
+                      cursorCourses.getInt(2),
+                        cursorCourses.getInt(3) == 1 ? true : false));
+            } while (cursorCourses.moveToNext());
+        }
+        * */
+
+//        if (cursor.moveToFirst()) {
+//            do {
+//                int id = cursor.getInt(cursor.getColumnIndex(COLUMN_ID));
+//                String name = cursor.getString(cursor.getColumnIndex(COLUMN_NAME));
+//                String rollNo = cursor.getString(cursor.getColumnIndex(COLUMN_ROLLNO));
+//                boolean isEnroll = cursor.getInt(cursor.getColumnIndex(COLUMN_ENROLL))>0;
+//                students.add(new Student(name, rollNo, isEnroll));
+//            } while (cursor.moveToNext());
+//        }
+
+        cursor.close();
+        db.close();
+
+        return data;
     }
 }
