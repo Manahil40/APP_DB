@@ -36,7 +36,7 @@
         tools:ignore="MissingConstraints" />
 
     <ImageButton
-        android:id="@+id/resultButton2"
+        android:id="@+id/resultButton"
         android:layout_width="186dp"
         android:layout_height="115dp"
         android:layout_marginTop="20dp"
