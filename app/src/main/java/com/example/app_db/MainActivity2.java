@@ -33,20 +33,21 @@ public class MainActivity2 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                ArrayList<APP_BO> arrayList = new ArrayList<>();
+                ArrayList<String> arrayList = hand.selectAllStudents();
                 String text = "";
                 for (int i = 0; i < arrayList.size(); i++) text += arrayList.get(i) + "\n";
                 PackageManager pm = MainActivity2.this.getPackageManager();
                 try {
-                    Intent waIntent = new Intent(Intent.ACTION_SEND);
-                    waIntent.setType("text/plain");
-                    PackageInfo info = pm.getPackageInfo("com.whatsapp", PackageManager.GET_META_DATA);
-                    waIntent.setPackage("com.whatsapp");
-                    waIntent.putExtra(Intent.EXTRA_TEXT, text);
-                    startActivity(Intent.createChooser(waIntent, "Share with"));
-                } catch (PackageManager.NameNotFoundException e) {
-                    Toast.makeText(MainActivity2.this, "WhatsApp not Installed", Toast.LENGTH_SHORT)
-                            .show();
+                    Intent sendIntent = new Intent("android.intent.action.MAIN");
+                    //sendIntent.setComponent(new ComponentName("com.whatsapp", "com.whatsapp.Conversation"));
+                    sendIntent.setAction(Intent.ACTION_SEND);
+                    sendIntent.setType("text/plain");
+                    sendIntent.putExtra(Intent.EXTRA_TEXT, text);
+                    //sendIntent.putExtra("jid","03244910193@s.whatsapp.net"); //phone number without "+" prefix
+                    sendIntent.setPackage("com.whatsapp");
+                    startActivity(sendIntent);
+                } catch(Exception e) {
+                    Toast.makeText(MainActivity2.this, "WhatsApp not Installed", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -56,7 +57,7 @@ public class MainActivity2 extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Uri webpage = Uri.parse("https://github.com/AyeshaSiddique01/LearningApplicationAssignment/commits/main");
+                Uri webpage = Uri.parse("https://github.com/Manahil40/APP_DB/commits/master");
                 Intent intent1 = new Intent(Intent.ACTION_VIEW, webpage);
                 startActivity(intent1);
             }
@@ -67,6 +68,8 @@ public class MainActivity2 extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                Intent intent2 = new Intent(MainActivity2.this,Result.class);
+                startActivity(intent2);
             }
         });
     }

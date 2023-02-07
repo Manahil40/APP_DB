@@ -73,8 +73,8 @@ public class DBHandler extends SQLiteOpenHelper{
     }
 
 
-    public List<APP_BO> selectAllStudents() {
-        List<APP_BO> data = new ArrayList<>();
+    public ArrayList<String> selectAllStudents() {
+        ArrayList<String> data = new ArrayList<>();
 
         String sql = "SELECT * FROM " + TABLE_NAME;
 
@@ -93,7 +93,7 @@ public class DBHandler extends SQLiteOpenHelper{
 
         if (cursor.moveToFirst()) {
             do {
-                data.add(new APP_BO(cursor.getInt(1),cursor.getString(2),cursor.getString(3)));
+                data.add(new APP_BO(cursor.getInt(1),cursor.getString(2),cursor.getString(3)).toString());
 
             } while (cursor.moveToNext());
         }
