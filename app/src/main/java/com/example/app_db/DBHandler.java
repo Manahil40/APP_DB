@@ -72,6 +72,13 @@ public class DBHandler extends SQLiteOpenHelper{
         db.close();
     }
 
+    public synchronized void truncate() {
+        String truncateStatement = "DELETE FROM " + TABLE_NAME + ";";
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL(truncateStatement);
+        db.close();
+    }
+
 
     public ArrayList<String> selectAllStudents() {
         ArrayList<String> data = new ArrayList<>();
@@ -94,6 +101,7 @@ public class DBHandler extends SQLiteOpenHelper{
         if (cursor.moveToFirst()) {
             do {
                 data.add(new APP_BO(cursor.getInt(1),cursor.getString(2),cursor.getString(3)).toString());
+
 
             } while (cursor.moveToNext());
         }

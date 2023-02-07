@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         db = new DBHandler(this);
+        db.truncate();
 
         txtQ = findViewById(R.id.txtQuestions);
         txtQNo = findViewById(R.id.textQNo);

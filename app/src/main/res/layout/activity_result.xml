@@ -12,7 +12,7 @@
         android:id="@+id/resulttxtiew"
         android:layout_width="154dp"
         android:layout_height="51dp"
-        android:layout_marginTop="76dp"
+        android:layout_marginTop="40dp"
         android:text="RESULT"
         android:textAlignment="center"
         android:textSize="32sp"
@@ -25,12 +25,13 @@
 
     <ListView
         android:id="@+id/result_table"
-        android:layout_width="409dp"
-        android:layout_height="769dp"
+        android:layout_width="351dp"
+        android:layout_height="649dp"
+        android:layout_marginTop="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/resulttxtiew"
-        app:layout_constraintVertical_bias="1.0" />
+        tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

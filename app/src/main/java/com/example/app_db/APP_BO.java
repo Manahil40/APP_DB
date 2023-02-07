@@ -37,6 +37,6 @@ public class APP_BO {
 
     @Override
     public String toString() {
-        return "APP_BO {question=" + question + ", your input=" + score + ", correct answer=" + answer + "]";
+        return "{Question=" + question + ", Your input=" + score + ", Correct answer=" + answer + "}";
     }
 }
