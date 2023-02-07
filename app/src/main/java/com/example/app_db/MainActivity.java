@@ -2,6 +2,7 @@ package com.example.app_db;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -16,12 +17,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Button btnEven, btnOdd;
     TextView txtQ, txtQNo, txtscore, txtAns;
     int numbers = 0, n = 1, score = 0;
-    String ans = "";
+    String ans = "", Uinput = "";
+    DBHandler db;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        db = new DBHandler(this);
 
         txtQ = findViewById(R.id.txtQuestions);
         txtQNo = findViewById(R.id.textQNo);
@@ -56,18 +62,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
         if (n <=10) {
-            switch (view.getId()) {
-                case R.id.even:
+            switch (view.getId()) { //answer is known
+                case R.id.even: //user ki input pta lg gai h
+                    Uinput = "Even";
                     if (ans == "Even") {
                         txtAns.setText("CORRECT ANSWER!");
                         score++;
                         txtscore.setText("Score: " + score);
+
                     } else {
                         txtAns.setText("WRONG ANSWER!");
                     }
                     break;
 
                 case R.id.odd:
+                    Uinput = "Odd";
                     if (ans == "Odd") {
                         txtAns.setText("CORRECT ANSWER!");
                         score++;
@@ -76,7 +85,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         txtAns.setText("WRONG ANSWER!");
                     }
                     break;
-            }n++;
+            }
+            db.insertData(new APP_BO(numbers,Uinput,ans));
+            n++;
+
+            if (n == 11)
+            {
+                Intent intent = new Intent(MainActivity.this,MainActivity2.class);
+                startActivity(intent);
+            }
             GenerateNumbers();
         }
     }

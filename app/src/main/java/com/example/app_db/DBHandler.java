@@ -25,13 +25,13 @@ public class DBHandler extends SQLiteOpenHelper{
     }
 
     @Override
-    public void onCreate(SQLiteDatabase sqLiteDatabase) {
+    public void onCreate(SQLiteDatabase db) {
 
         String sql = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + "("
                 + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + COLUMN_QUESTION + " INTEGER,"
-                + COLUMN_SCORE + " INTEGER,"
-                + COLUMN_ANSWER + " BOOLEAN"
+                + COLUMN_SCORE + " TEXT," //users score of right answer
+                + COLUMN_ANSWER + " TEXT" //correct answer of the question
                 + ")";
         db.execSQL(sql);
     }
@@ -91,15 +91,12 @@ public class DBHandler extends SQLiteOpenHelper{
         }
         * */
 
-//        if (cursor.moveToFirst()) {
-//            do {
-//                int id = cursor.getInt(cursor.getColumnIndex(COLUMN_ID));
-//                String name = cursor.getString(cursor.getColumnIndex(COLUMN_NAME));
-//                String rollNo = cursor.getString(cursor.getColumnIndex(COLUMN_ROLLNO));
-//                boolean isEnroll = cursor.getInt(cursor.getColumnIndex(COLUMN_ENROLL))>0;
-//                students.add(new Student(name, rollNo, isEnroll));
-//            } while (cursor.moveToNext());
-//        }
+        if (cursor.moveToFirst()) {
+            do {
+                data.add(new APP_BO(cursor.getInt(1),cursor.getString(2),cursor.getString(3)));
+
+            } while (cursor.moveToNext());
+        }
 
         cursor.close();
         db.close();
